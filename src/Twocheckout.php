@@ -10,7 +10,7 @@ abstract class Twocheckout
     public static $baseUrl;
     public static $error;
     public static $format = 'array';
-    const VERSION = '0.5.0';
+    const VERSION = '0.5.1';
 
     public static function sellerId($value = null) {
         self::$sid = $value;
