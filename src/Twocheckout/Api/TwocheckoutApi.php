@@ -8,6 +8,7 @@ class TwocheckoutApi
     private $pass;
     private $sid;
     private $privateKey;
+    private $verifySSL;
 
 	function __construct() {
         $this->user = Twocheckout::$username;

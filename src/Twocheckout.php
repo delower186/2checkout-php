@@ -7,10 +7,10 @@ abstract class Twocheckout
     public static $username;
     public static $password;
     public static $verifySSL = true;
-    public static $baseUrl = 'https://www.2checkout.com';
+    public static $baseUrl;
     public static $error;
     public static $format = 'array';
-    const VERSION = '0.4.0';
+    const VERSION = '0.5.0';
 
     public static function sellerId($value = null) {
         self::$sid = $value;
@@ -33,6 +33,14 @@ abstract class Twocheckout
             self::$verifySSL = false;
         } else {
             self::$verifySSL = true;
+        }
+    }
+
+    public static function sandbox($value = null) {
+        if ($value == 0 || $value == false) {
+            self::$baseUrl = 'https://www.2checkout.com';
+        } else {
+            self::$sandbox = 'https://sandbox.2checkout.com';
         }
     }
 
