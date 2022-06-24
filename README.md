@@ -243,7 +243,7 @@ $params = array();
 foreach ($_REQUEST as $k => $v) {
     $params[$k] = $v;
 }
-$passback = Twocheckout_Return::check($params, "tango");
+$passback = TwocheckoutReturn::check($params, "tango");
 ```
 
 *Example Response:*
