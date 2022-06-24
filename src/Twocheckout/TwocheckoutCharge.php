@@ -1,6 +1,6 @@
 <?php
 
-class Twocheckout_Charge extends Twocheckout
+class TwocheckoutCharge extends Twocheckout
 {
 
     public static function form($params, $type='Checkout')
@@ -61,9 +61,9 @@ class Twocheckout_Charge extends Twocheckout
     public static function auth($params=array())
     {
         $params['api'] = 'checkout';
-        $request = new Twocheckout_Api_Requester();
+        $request = new TwocheckoutApi();
         $result = $request->doCall('/checkout/api/1/'.self::$sid.'/rs/authService', $params);
-        return Twocheckout_Util::returnResponse($result);
+        return TwocheckoutUtil::returnResponse($result);
     }
 
 }

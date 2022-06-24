@@ -1,8 +1,10 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 require_once(dirname(__FILE__) . '/../lib/Twocheckout.php');
 
-class TestReturn extends PHPUnit_Framework_TestCase
+class ReturnTest extends TestCase
 {
 
     public function testReturnCheck()
@@ -13,7 +15,7 @@ class TestReturn extends PHPUnit_Framework_TestCase
             'total' => '0.01',
             'order_number' => '4774380224'
         );
-        $result = Twocheckout_Return::check($params, 'tango');
+        $result = TwocheckoutReturn::check($params, 'tango');
         $this->assertSame("Success", $result['response_code']);
     }
 

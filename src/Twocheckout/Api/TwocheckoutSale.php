@@ -1,22 +1,22 @@
 <?php
 
-class Twocheckout_Sale extends Twocheckout
+class TwocheckoutSale extends Twocheckout
 {
 
     public static function retrieve($params=array())
     {
-        $request = new Twocheckout_Api_Requester();
+        $request = new TwocheckoutApi();
         if(array_key_exists("sale_id",$params) || array_key_exists("invoice_id",$params)) {
             $urlSuffix = '/api/sales/detail_sale';
         } else {
             $urlSuffix = '/api/sales/list_sales';
         }
         $result = $request->doCall($urlSuffix, $params);
-        return Twocheckout_Util::returnResponse($result);
+        return TwocheckoutUtil::returnResponse($result);
     }
 
     public static function refund($params=array()) {
-        $request = new Twocheckout_Api_Requester();
+        $request = new TwocheckoutApi();
         if(array_key_exists("lineitem_id",$params)) {
             $urlSuffix ='/api/sales/refund_lineitem';
             $result = $request->doCall($urlSuffix, $params);
@@ -24,22 +24,22 @@ class Twocheckout_Sale extends Twocheckout
             $urlSuffix ='/api/sales/refund_invoice';
             $result = $request->doCall($urlSuffix, $params);
         } else {
-            $result = Twocheckout_Message::message('Error', 'You must pass a sale_id, invoice_id or lineitem_id to use this method.');
+            $result = TwocheckoutMessage::message('Error', 'You must pass a sale_id, invoice_id or lineitem_id to use this method.');
         }
-        return Twocheckout_Util::returnResponse($result);
+        return TwocheckoutUtil::returnResponse($result);
     }
 
     public static function stop($params=array()) {
-        $request = new Twocheckout_Api_Requester();
+        $request = new TwocheckoutApi();
         $urlSuffix ='/api/sales/stop_lineitem_recurring';
         if(array_key_exists("lineitem_id",$params)) {
             $result = $request->doCall($urlSuffix, $params);
         } elseif(array_key_exists("sale_id",$params)) {
-            $result = Twocheckout_Sale::retrieve($params);
+            $result = TwocheckoutSale::retrieve($params);
             if (!is_array($result)) {
-                $result = Twocheckout_Util::returnResponse($result, 'array');
+                $result = TwocheckoutUtil::returnResponse($result, 'array');
             }
-            $lineitemData = Twocheckout_Util::getRecurringLineitems($result);
+            $lineitemData = TwocheckoutUtil::getRecurringLineitems($result);
             if (isset($lineitemData[0])) {
                 $stoppedLineitems = array();
                 foreach( $lineitemData as $value )
@@ -51,46 +51,46 @@ class Twocheckout_Sale extends Twocheckout
                         $stoppedLineitems[] = $value;
                     }
                 }
-                $result = Twocheckout_Message::message('OK', $stoppedLineitems);
+                $result = TwocheckoutMessage::message('OK', $stoppedLineitems);
             } else {
-                throw new Twocheckout_Error("No recurring lineitems to stop.");
+                throw new TwocheckoutError("No recurring lineitems to stop.");
             }
         } else {
-            throw new Twocheckout_Error('You must pass a sale_id or lineitem_id to use this method.');
+            throw new TwocheckoutError('You must pass a sale_id or lineitem_id to use this method.');
         }
-        return Twocheckout_Util::returnResponse($result);
+        return TwocheckoutUtil::returnResponse($result);
     }
 
     public static function active($params=array()) {
         if(array_key_exists("sale_id",$params)) {
-            $result = Twocheckout_Sale::retrieve($params);
+            $result = TwocheckoutSale::retrieve($params);
             if (!is_array($result)) {
-                $result = Twocheckout_Util::returnResponse($result, 'array');
+                $result = TwocheckoutUtil::returnResponse($result, 'array');
             }
-            $lineitemData = Twocheckout_Util::getRecurringLineitems($result);
+            $lineitemData = TwocheckoutUtil::getRecurringLineitems($result);
             if (isset($lineitemData[0])) {
-                $result = Twocheckout_Message::message('OK', $lineitemData);
-                return Twocheckout_Util::returnResponse($result);
+                $result = TwocheckoutMessage::message('OK', $lineitemData);
+                return TwocheckoutUtil::returnResponse($result);
             } else {
-                throw new Twocheckout_Error("No active recurring lineitems.");
+                throw new TwocheckoutError("No active recurring lineitems.");
             }
         } else {
-            throw new Twocheckout_Error("You must pass a sale_id to use this method.");
+            throw new TwocheckoutError("You must pass a sale_id to use this method.");
         }
     }
 
     public static function comment($params=array()) {
-        $request = new Twocheckout_Api_Requester();
+        $request = new TwocheckoutApi();
         $urlSuffix ='/api/sales/create_comment';
         $result = $request->doCall($urlSuffix, $params);
-        return Twocheckout_Util::returnResponse($result);
+        return TwocheckoutUtil::returnResponse($result);
     }
 
     public static function ship($params=array()) {
-        $request = new Twocheckout_Api_Requester();
+        $request = new TwocheckoutApi();
         $urlSuffix ='/api/sales/mark_shipped';
         $result = $request->doCall($urlSuffix, $params);
-        return Twocheckout_Util::returnResponse($result);
+        return TwocheckoutUtil::returnResponse($result);
     }
 
 }

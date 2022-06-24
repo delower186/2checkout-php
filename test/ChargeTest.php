@@ -2,7 +2,9 @@
 
 require_once(dirname(__FILE__) . '/../lib/Twocheckout.php');
 
-class TestCharge extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ChargeTest extends TestCase
 {
 
     public function testChargeForm()
@@ -13,7 +15,7 @@ class TestCharge extends PHPUnit_Framework_TestCase
             'li_0_name' => 'Test Product',
             'li_0_price' => '0.01'
         );
-        Twocheckout_Charge::form($params, "Click Here!");
+        TwocheckoutCharge::form($params, "Click Here!");
     }
 
     public function testChargeFormAuto()
@@ -24,7 +26,7 @@ class TestCharge extends PHPUnit_Framework_TestCase
             'li_0_name' => 'Test Product',
             'li_0_price' => '0.01'
         );
-        Twocheckout_Charge::form($params, 'auto');
+        TwocheckoutCharge::form($params, 'auto');
     }
 
     public function testDirect()
@@ -42,7 +44,7 @@ class TestCharge extends PHPUnit_Framework_TestCase
             'zip' => '43123',
             'country' => 'USA'
         );
-        Twocheckout_Charge::direct($params, "Click Here!");
+        TwocheckoutCharge::direct($params, "Click Here!");
     }
 
     public function testDirectAuto()
@@ -60,7 +62,7 @@ class TestCharge extends PHPUnit_Framework_TestCase
             'zip' => '43123',
             'country' => 'USA'
         );
-        Twocheckout_Charge::direct($params, 'auto');
+        TwocheckoutCharge::direct($params, 'auto');
     }
 
     public function testChargeLink()
@@ -71,7 +73,7 @@ class TestCharge extends PHPUnit_Framework_TestCase
             'li_0_name' => 'Test Product',
             'li_0_price' => '0.01'
         );
-        Twocheckout_Charge::link($params);
+        TwocheckoutCharge::link($params);
     }
 
     public function testChargeAuth()
@@ -80,7 +82,7 @@ class TestCharge extends PHPUnit_Framework_TestCase
         Twocheckout::sellerId('your seller id');
 
         try {
-            $charge = Twocheckout_Charge::auth(array(
+            $charge = TwocheckoutCharge::auth(array(
                 "sellerId" => "your seller id",
                 "demo" =>true,
                 "merchantOrderId" => "123",
@@ -109,7 +111,7 @@ class TestCharge extends PHPUnit_Framework_TestCase
                 )
             ));
             $this->assertSame('APPROVED', $charge['response']['responseCode']);
-        } catch (Twocheckout_Error $e) {
+        } catch (TwocheckoutError $e) {
             $this->assertSame('Bad request - parameter error', $e->getMessage());
         }
     }

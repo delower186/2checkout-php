@@ -1,9 +1,13 @@
 <?php
+
 require_once(dirname(__FILE__) . '/../lib/Twocheckout.php');
-class TwocheckoutTest extends PHPUnit_Framework_TestCase
+
+use PHPUnit\Framework\TestCase;
+
+class CompanyTest extends TestCase
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         Twocheckout::username('username');
         Twocheckout::password('pass');
@@ -11,13 +15,13 @@ class TwocheckoutTest extends PHPUnit_Framework_TestCase
 
     public function testCompanyRetrieve()
     {
-        $company = Twocheckout_Company::retrieve();
+        $company = TwocheckoutCompany::retrieve();
         $this->assertSame("250111206876", $company['vendor_company_info']['vendor_id']);
     }
 
     public function testContactRetrieve()
     {
-        $company = Twocheckout_Contact::retrieve();
+        $company = TwocheckoutContact::retrieve();
         $this->assertSame("250111206876", $company['vendor_contact_info']['vendor_id']);
     }
   

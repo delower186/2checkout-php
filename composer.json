@@ -1,15 +1,15 @@
 {
-    "name": "2checkout/2checkout-php",
+    "name": "delower186/2checkout-php",
     "type": "library",
-    "description": "2Checkout PHP Library",
+    "description": "2Checkout PHP Library with PSR autoloading",
     "keywords": ["2Checkout","2co","payment","gateway"],
-    "homepage": "https://github.com/2Checkout/2checkout-php",
+    "homepage": "https://github.com/delower186/2checkout-php",
     "license": "MIT",
     "authors": [
         {
-            "name": "Craig Christenson",
-            "email": "christensoncraig@gmail.com",
-            "homepage": "https://github.com/craigchristenson"
+            "name": "Md Delower Hossain",
+            "email": "info@delower.me",
+            "homepage": "https://github.com/delower186"
         }
     ],
     "require": {
@@ -18,11 +18,11 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
-        "psr-0": {
-            "Twocheckout": "lib/"
+        "psr-4": {
+            "delower186\\2checkout-php\\": "src/"
         }
     }
 }

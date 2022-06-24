@@ -6,7 +6,7 @@ This library provides developers with a simple set of bindings to the 2Checkout 
 To use, download or clone the repository.
 
 ```shell
-git clone https://github.com/2Checkout/2checkout-php.git
+git clone https://github.com/delower186/2checkout-php.git
 ```
 
 Require in your php script.
@@ -66,7 +66,7 @@ Twocheckout::privateKey('BE632CB0-BB29-11E3-AFB6-D99C28100996');
 Twocheckout::sellerId('901248204');
 
 try {
-    $charge = Twocheckout_Charge::auth(array(
+    $charge = TwocheckoutCharge::auth(array(
         "sellerId" => "901248204",
         "merchantOrderId" => "123",
         "token" => 'MjFiYzIzYjAtYjE4YS00ZmI0LTg4YzYtNDIzMTBlMjc0MDlk',
@@ -94,7 +94,7 @@ try {
         )
     ));
     $this->assertEquals('APPROVED', $charge['response']['responseCode']);
-} catch (Twocheckout_Error $e) {
+} catch (TwocheckoutError $e) {
     $this->assertEquals('Unauthorized', $e->getMessage());
 }
 ```
@@ -188,8 +188,8 @@ $args = array(
     'sale_id' => 4834917619
 );
 try {
-    $result = Twocheckout_Sale::stop($args);
-} catch (Twocheckout_Error $e) {
+    $result = TwocheckoutSale::stop($args);
+} catch (TwocheckoutError $e) {
     $e->getMessage();
 }
 ```
@@ -271,7 +271,7 @@ $params = array();
 foreach ($_POST as $k => $v) {
     $params[$k] = $v;
 }
-$passback = Twocheckout_Notification::check($params, "tango");
+$passback = TwocheckoutNotification::check($params, "tango");
 ```
 
 *Example Response:*
@@ -301,8 +301,8 @@ $params = array(
     'comment' => 'Order never sent.'
 );
 try {
-    $sale = Twocheckout_Sale::refund($params);
-} catch (Twocheckout_Error $e) {
+    $sale = TwocheckoutSale::refund($params);
+} catch (TwocheckoutError $e) {
     $e->getMessage();
 }
 ```

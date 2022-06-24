@@ -1,11 +1,13 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 require_once(dirname(__FILE__) . '/../lib/Twocheckout.php');
 
-class TestProduct extends PHPUnit_Framework_TestCase
+class ProductTest extends TestCase
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         Twocheckout::username('username');
         Twocheckout::password('pass');
@@ -16,7 +18,7 @@ class TestProduct extends PHPUnit_Framework_TestCase
         $params = array(
             'pagesize' => 2
         );
-        $products = Twocheckout_Product::retrieve($params);
+        $products = TwocheckoutProduct::retrieve($params);
         $this->assertSame(2, sizeof($products['products']));
     }
 
@@ -26,7 +28,7 @@ class TestProduct extends PHPUnit_Framework_TestCase
             'name' => "test",
             'price' => 0.01
         );
-        $response = Twocheckout_Product::create($params);
+        $response = TwocheckoutProduct::create($params);
         $this->assertSame("Product successfully created.", $response['response_message']);
 
     }

@@ -1,25 +1,25 @@
 <?php
 
-class Twocheckout_Company extends Twocheckout
+class TwocheckoutCompany extends Twocheckout
 {
 
     public static function retrieve()
     {
-        $request = new Twocheckout_Api_Requester();
+        $request = new TwocheckoutApi();
         $urlSuffix = '/api/acct/detail_company_info';
         $result = $request->doCall($urlSuffix);
-        return Twocheckout_Util::returnResponse($result);
+        return TwocheckoutUtil::returnResponse($result);
     }
 }
 
-class Twocheckout_Contact extends Twocheckout
+class TwocheckoutContact extends Twocheckout
 {
 
     public static function retrieve()
     {
-        $request = new Twocheckout_Api_Requester();
+        $request = new TwocheckoutApi();
         $urlSuffix = '/api/acct/detail_contact_info';
         $result = $request->doCall($urlSuffix);
-        return Twocheckout_Util::returnResponse($result);
+        return TwocheckoutUtil::returnResponse($result);
     }
 }
