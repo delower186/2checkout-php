@@ -12,7 +12,7 @@ git clone https://github.com/delower186/2checkout-php.git
 Require in your php script.
 
 ```php
-require_once("/path/to/2checkout-php/lib/Twocheckout.php");
+require_once("/path/to/2checkout-php/src/Twocheckout.php");
 ```
 
 All methods return an Array by default or you can set the format to 'json' to get a JSON response.
@@ -49,10 +49,6 @@ Twocheckout::sandbox(true);
 Twocheckout::format('json');
 
 ```
-
-
-
-Full documentation for each binding is provided in the **[wiki](https://github.com/2Checkout/2checkout-php/wiki)**.
 
 Example Payment API Usage
 -----------------
@@ -221,7 +217,7 @@ $params = array(
     'li_0_name' => 'Test Product',
     'li_0_price' => '0.01'
 );
-Twocheckout_Charge::form($params, 'auto');
+TwocheckoutCharge::form($params, 'auto');
 ```
 
 *Example Response:*
@@ -285,7 +281,7 @@ $passback = TwocheckoutNotification::check($params, "tango");
 
 Exceptions:
 -----------
-Twocheckout_Error exceptions are thrown by if an error has returned. It is best to catch these exceptions so that they can be gracefully handled in your application.
+TwocheckoutError exceptions are thrown by if an error has returned. It is best to catch these exceptions so that they can be gracefully handled in your application.
 
 *Example Usage*
 
@@ -306,5 +302,3 @@ try {
     $e->getMessage();
 }
 ```
-
-Full documentation for each binding is provided in the **[wiki](https://github.com/2Checkout/2checkout-php/wiki)**.
