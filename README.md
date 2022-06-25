@@ -42,8 +42,8 @@ Twocheckout::password('testlibraryapi901248204PASS');
 // If you want to turn off SSL verification (Please don't do this in your production environment)
 Twocheckout::verifySSL(false);  // this is set to true by default
 
-// To use your sandbox account set sandbox to true
-Twocheckout::sandbox(true);
+// To create test orders or use demo mode set demo to true
+Twocheckout::demo(true);
 
 // All methods return an Array by default or you can set the format to 'json' to get a JSON response.
 Twocheckout::format('json');
@@ -87,7 +87,8 @@ try {
             "country" => 'USA',
             "email" => 'testingtester@2co.com',
             "phoneNumber" => '555-555-5555'
-        )
+        ),
+        "demo" => Twocheckout::$demo
     ));
     $this->assertEquals('APPROVED', $charge['response']['responseCode']);
 } catch (TwocheckoutError $e) {

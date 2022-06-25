@@ -1,62 +1,29 @@
 <?php
 
-abstract class Twocheckout
-{
-    public static $sid;
-    public static $privateKey;
-    public static $username;
-    public static $password;
-    public static $verifySSL = true;
-    public static $baseUrl;
-    public static $error;
-    public static $format = 'array';
-    const VERSION = '0.5.1';
+class Twocheckout{
 
-    public static function sellerId($value = null) {
-        self::$sid = $value;
-    }
+    public static function pay($paymentInfo = [],$keys = []){
 
-    public static function privateKey($value = null) {
-        self::$privateKey = $value;
-    }
+        TwocheckoutGateway::privateKey($keys['privateKey']);
+        TwocheckoutGateway::sellerId($keys['sellerId']);
+        TwocheckoutGateway::demo($keys['demo']);
 
-    public static function username($value = null) {
-        self::$username = $value;
-    }
-
-    public static function password($value = null) {
-        self::$password = $value;
-    }
-
-    public static function verifySSL($value = null) {
-        if ($value == 0 || $value == false) {
-            self::$verifySSL = false;
-        } else {
-            self::$verifySSL = true;
+        if(TwocheckoutGateway::$demo === true){
+            $paymentInfo['demo'] = true;
         }
-    }
 
-    public static function sandbox($value = null) {
-        if ($value == 0 || $value == false) {
-            self::$baseUrl = 'https://www.2checkout.com';
-        } else {
-            self::$sandbox = 'https://sandbox.2checkout.com';
+        try{
+            $charge = TwocheckoutCharge::auth($paymentInfo, 'array');
+
+            if($charge['response']['responseCode'] == 'APPROVED'){
+
+                echo "Paid";
+
+            }
+        }catch (TwocheckoutError $e) {
+
+            echo $e->getMessage();
         }
-    }
 
-    public static function format($value = null) {
-        self::$format = $value;
     }
 }
-
-require(dirname(__FILE__) . '/Twocheckout/Api/TwocheckoutAccount.php');
-require(dirname(__FILE__) . '/Twocheckout/Api/TwocheckoutPayment.php');
-require(dirname(__FILE__) . '/Twocheckout/Api/TwocheckoutApi.php');
-require(dirname(__FILE__) . '/Twocheckout/Api/TwocheckoutSale.php');
-require(dirname(__FILE__) . '/Twocheckout/Api/TwocheckoutProduct.php');
-require(dirname(__FILE__) . '/Twocheckout/Api/TwocheckoutUtil.php');
-require(dirname(__FILE__) . '/Twocheckout/Api/TwocheckoutError.php');
-require(dirname(__FILE__) . '/Twocheckout/TwocheckoutReturn.php');
-require(dirname(__FILE__) . '/Twocheckout/TwocheckoutNotification.php');
-require(dirname(__FILE__) . '/Twocheckout/TwocheckoutCharge.php');
-require(dirname(__FILE__) . '/Twocheckout/TwocheckoutMessage.php');
